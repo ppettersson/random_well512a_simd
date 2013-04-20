@@ -29,6 +29,7 @@
 #include "RandomWELL512a.h"
 #include "RandomWELL512a_SSE2.h"
 #include "WELL512a.h"
+#include <string.h>     // Needed for memcmp().
 
 void Benchmark()
 {
