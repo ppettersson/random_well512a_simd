@@ -34,75 +34,75 @@
 class RandomWELL512a
 {
 public:
-	RandomWELL512a(int seed);
-	RandomWELL512a(unsigned *seed);
-	
-	unsigned GetUnsigned();
+    RandomWELL512a(int seed);
+    RandomWELL512a(unsigned *seed);
 
-	double GetDouble();
+    unsigned GetUnsigned();
+
+    double GetDouble();
 
 private:
-	unsigned state[16];
-	unsigned index;
+    unsigned state[16];
+    unsigned index;
 };
 
 
 inline RandomWELL512a::RandomWELL512a(int seed)
-	: index(0)
+    : index(0)
 {
-	srand(seed);
-	for (int i = 0; i < 16; ++i)
-		state[i] = rand();
+    srand(seed);
+    for (int i = 0; i < 16; ++i)
+        state[i] = rand();
 }
 
 inline RandomWELL512a::RandomWELL512a(unsigned *seed)
-	: index(0)
+    : index(0)
 {
-	memcpy(state, seed, 16 * sizeof(unsigned));
+    memcpy(state, seed, 16 * sizeof(unsigned));
 }
 
 inline unsigned RandomWELL512a::GetUnsigned()
 {
-	#define MUTATE_LEFT(value, shift)			value ^ (value << shift)
-	#define MUTATE_RIGHT(value, shift)			value ^ (value >> shift)
-	#define MUTATE_LEFT_MIX(value, shift, mix)	value ^ ((value << shift) & mix)
+    #define MUTATE_LEFT(value, shift)			value ^ (value << shift)
+    #define MUTATE_RIGHT(value, shift)			value ^ (value >> shift)
+    #define MUTATE_LEFT_MIX(value, shift, mix)	value ^ ((value << shift) & mix)
 
-	unsigned index_9  = (index +  9) & 15;
-	unsigned index_13 = (index + 13) & 15;
-	unsigned index_15 = (index + 15) & 15;
+    unsigned index_9  = (index +  9) & 15;
+    unsigned index_13 = (index + 13) & 15;
+    unsigned index_15 = (index + 15) & 15;
 
-	unsigned state_index = state[index];
-	unsigned state_index_9 = state[index_9];
-	unsigned state_index_13 = state[index_13];
-	unsigned state_index_15 = state[index_15];
+    unsigned state_index = state[index];
+    unsigned state_index_9 = state[index_9];
+    unsigned state_index_13 = state[index_13];
+    unsigned state_index_15 = state[index_15];
 
-	unsigned z1	= MUTATE_LEFT(state_index, 16);
-	z1 ^= MUTATE_LEFT(state_index_13, 15);
+    unsigned z1	= MUTATE_LEFT(state_index, 16);
+    z1 ^= MUTATE_LEFT(state_index_13, 15);
 
-	unsigned z2	= MUTATE_RIGHT(state_index_9, 11);
+    unsigned z2	= MUTATE_RIGHT(state_index_9, 11);
 
-	unsigned result0 = z1 ^ z2;
-	state[index] = result0;
+    unsigned result0 = z1 ^ z2;
+    state[index] = result0;
 
-	unsigned result1 = MUTATE_LEFT(state_index_15, 2);
-	result1 ^= MUTATE_LEFT(z1, 18);;
-	result1 ^= z2 << 28;
+    unsigned result1 = MUTATE_LEFT(state_index_15, 2);
+    result1 ^= MUTATE_LEFT(z1, 18);;
+    result1 ^= z2 << 28;
 
-	result1 ^= MUTATE_LEFT_MIX(result0, 5, 0xda442d24U);
+    result1 ^= MUTATE_LEFT_MIX(result0, 5, 0xda442d24U);
 
-	index = index_15;
-	state[index] = result1;
-	return result1;
+    index = index_15;
+    state[index] = result1;
+    return result1;
 
-	#undef MUTATE_LEFT
-	#undef MUTATE_RIGHT
-	#undef MUTATE_LEFT_MIX
+    #undef MUTATE_LEFT
+    #undef MUTATE_RIGHT
+    #undef MUTATE_LEFT_MIX
 }
 
 inline double RandomWELL512a::GetDouble()
 {
-	const double kToFloat = 2.32830643653869628906e-10;
-	return GetUnsigned() * kToFloat;
+    const double kToFloat = 2.32830643653869628906e-10;
+    return GetUnsigned() * kToFloat;
 }
 
 #endif // RANDOM_WELL512A_H

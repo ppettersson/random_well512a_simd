@@ -34,22 +34,22 @@
 class Timer
 {
 public:
-	Timer()
-	{
-		startTime = clock();
-	}
+    Timer()
+    {
+        startTime = clock();
+    }
 
-	void Report(const char *msg = NULL)
-	{
-		clock_t totalTime = clock() - startTime;
-		float seconds = (float)totalTime / CLOCKS_PER_SEC;
-		if (msg)
-			std::cout << msg << " ";
-		std::cout << "took " << seconds << " seconds." << std::endl;
-	}
+    void Report(const char *msg = NULL)
+    {
+        clock_t totalTime = clock() - startTime;
+        float seconds = (float)totalTime / CLOCKS_PER_SEC;
+        if (msg)
+            std::cout << msg << " ";
+        std::cout << "took " << seconds << " seconds." << std::endl;
+    }
 
 private:
-	clock_t	startTime;
+    clock_t	startTime;
 };
 
 #endif // TIMER_H
