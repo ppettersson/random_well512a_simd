@@ -48,11 +48,6 @@ RandomWELL512a_SSE2::RandomWELL512a_SSE2(unsigned *seed)
 
 void RandomWELL512a_SSE2::GetUnsigned4(unsigned *result4)
 {
-	// Calculations.
-	#define MUTATE_LEFT(value, shift)			_mm_xor_si128(value, _mm_slli_epi32(value, shift))
-	#define MUTATE_RIGHT(value, shift)			_mm_xor_si128(value, _mm_srli_epi32(value, shift))
-	#define MUTATE_LEFT_MIX(value, shift, mix)	_mm_xor_si128(value, _mm_and_si128(_mm_slli_epi32(value, shift), mix))
-
 	unsigned index_15		= (index + 15) & 15;
 	__m128i state_index		= xmm_state[index];
 	__m128i state_index_9	= xmm_state[(index +  9) & 15];
@@ -60,23 +55,21 @@ void RandomWELL512a_SSE2::GetUnsigned4(unsigned *result4)
 	__m128i state_index_15	= xmm_state[index_15];
 	const __m128i kMix		= _mm_set1_epi32(0xda442d24);
 
-	__m128i z1 = _mm_xor_si128(MUTATE_LEFT(state_index, 16), MUTATE_LEFT(state_index_13, 15));
-	__m128i z2 = MUTATE_RIGHT(state_index_9, 11);
+	__m128i left = _mm_xor_si128(state_index, _mm_slli_epi32(state_index, 16));
+	__m128i right = _mm_xor_si128(state_index_13, _mm_slli_epi32(state_index_13, 15));
+	__m128i z1 = _mm_xor_si128(left, right);
+	__m128i z2 = _mm_xor_si128(state_index_9, _mm_srli_epi32(state_index_9, 11));
 	__m128i result0 = _mm_xor_si128(z1, z2);
 	xmm_state[index] = result0;
 
-	__m128i result1 = MUTATE_LEFT(state_index_15, 2);
-	result1 = _mm_xor_si128(result1, MUTATE_LEFT(z1, 18));
+	__m128i result1 = _mm_xor_si128(state_index_15, _mm_slli_epi32(state_index_15, 2));
+	result1 = _mm_xor_si128(result1, _mm_xor_si128(z1, _mm_slli_epi32(z1, 18)));
 	result1 = _mm_xor_si128(result1, _mm_slli_epi32(z2, 28));
-	result1 = _mm_xor_si128(result1, MUTATE_LEFT_MIX(result0, 5, kMix));
+	result1 = _mm_xor_si128(result1, _mm_xor_si128(result0, _mm_and_si128(_mm_slli_epi32(result0, 5), kMix)));
 	index = index_15;
 	xmm_state[index] = result1;
 
 	_mm_storeu_si128((__m128i *)result4, result1);
-
-	#undef MUTATE_LEFT
-	#undef MUTATE_RIGHT
-	#undef MUTATE_LEFT_MIX
 }
 
 void RandomWELL512a_SSE2::GetDouble4(double *result4)
