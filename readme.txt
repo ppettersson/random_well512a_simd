@@ -29,7 +29,7 @@ Original C      0.223      0.19
 
 
 === REQUIREMENTS ===
-An SSE2 capable CPU (i.e. AMD Athlon 64, Intel Pentium 4 or newer.
+An SSE2 capable CPU (i.e. AMD Athlon 64, Intel Pentium 4 or newer).
 
 It's been tested with Visual Studio 2012 and gcc 4.6.3 but should compile
 and run on other compilers as well.

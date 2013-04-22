@@ -92,8 +92,8 @@ cleanall:
 
 help:
 	@echo "BUILD   = Build mode. One of:"
-	@echo "          debug (default)"
-	@echo "          release (optimizations)"
+	@echo "          debug (no optimizations)"
+	@echo "          release (optimizations, the default)"
 	@echo "APPS    = Applications to build. Defaults to all."
 	@echo "VERBOSE = Full output from commands if set."
 
@@ -107,7 +107,6 @@ $(EXES):
 $(BUILD_DIR)/%.a:
 	@mkdir -p $(@D)
 	$(HUSH_GENERATE) $(AR) $(ARFLAGS) $@ $^
-#	$(HUSH_GENERATE) $(AR) $(ARFLAGS) $@ $^ 2> /dev/null
 
 $(BUILD_DIR)/%.o: $(SRC_ROOT)/%.c
 	@mkdir -p $(@D)

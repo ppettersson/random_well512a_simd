@@ -28,8 +28,8 @@
 #ifndef RANDOM_WELL512A_H
 #define RANDOM_WELL512A_H
 
-#include <stdlib.h>		// Needed for rand().
-#include <memory.h>		// Needed for memcpy().
+#include <stdlib.h>     // Needed for rand().
+#include <memory.h>     // Needed for memcpy().
 
 class RandomWELL512a
 {
@@ -63,9 +63,9 @@ inline RandomWELL512a::RandomWELL512a(unsigned *seed)
 
 inline unsigned RandomWELL512a::GetUnsigned()
 {
-    #define MUTATE_LEFT(value, shift)			value ^ (value << shift)
-    #define MUTATE_RIGHT(value, shift)			value ^ (value >> shift)
-    #define MUTATE_LEFT_MIX(value, shift, mix)	value ^ ((value << shift) & mix)
+    #define MUTATE_LEFT(value, shift)           value ^ (value << shift)
+    #define MUTATE_RIGHT(value, shift)          value ^ (value >> shift)
+    #define MUTATE_LEFT_MIX(value, shift, mix)  value ^ ((value << shift) & mix)
 
     unsigned index_9  = (index +  9) & 15;
     unsigned index_13 = (index + 13) & 15;

@@ -28,8 +28,8 @@
 #ifndef RANDOM_WELL512A_SSE2_H
 #define RANDOM_WELL512A_SSE2_H
 
-#include <emmintrin.h>	// SSE2 instrinsics.
-#include <stdlib.h>		// Needed for rand().
+#include <emmintrin.h>  // SSE2 instrinsics.
+#include <stdlib.h>     // Needed for rand().
 
 class RandomWELL512a_SSE2
 {
@@ -86,12 +86,12 @@ inline double RandomWELL512a_SSE2::GetDouble()
 
 inline void RandomWELL512a_SSE2::GetUnsigned4(unsigned *result4)
 {
-    unsigned index_15		= (index + 15) & 15;
-    __m128i state_index		= state[index];
-    __m128i state_index_9	= state[(index +  9) & 15];
-    __m128i state_index_13	= state[(index + 13) & 15];
-    __m128i state_index_15	= state[index_15];
-    const __m128i kMix		= _mm_set1_epi32(0xda442d24);
+    unsigned index_15       = (index + 15) & 15;
+    __m128i state_index     = state[index];
+    __m128i state_index_9   = state[(index +  9) & 15];
+    __m128i state_index_13  = state[(index + 13) & 15];
+    __m128i state_index_15  = state[index_15];
+    const __m128i kMix      = _mm_set1_epi32(0xda442d24);
 
     __m128i left    = _mm_xor_si128(state_index, _mm_slli_epi32(state_index, 16));
     __m128i right   = _mm_xor_si128(state_index_13, _mm_slli_epi32(state_index_13, 15));
