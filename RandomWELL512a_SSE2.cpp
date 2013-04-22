@@ -31,6 +31,7 @@
 
 RandomWELL512a_SSE2::RandomWELL512a_SSE2(int seed)
 	: index(0)
+	, resultIndex(4)
 {
 	srand(seed);
 	for (int i = 0; i < 16; ++i)
@@ -39,6 +40,7 @@ RandomWELL512a_SSE2::RandomWELL512a_SSE2(int seed)
 
 RandomWELL512a_SSE2::RandomWELL512a_SSE2(unsigned *seed)
 	: index(0)
+	, resultIndex(4)
 {
 	for (int i = 0; i < 16; ++i)
 		xmm_state[i] = _mm_set_epi32(seed[i + 48], seed[i + 32], seed[i + 16], seed[i]);
