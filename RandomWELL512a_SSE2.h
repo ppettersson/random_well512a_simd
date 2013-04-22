@@ -72,12 +72,12 @@ inline RandomWELL512a_SSE2::RandomWELL512a_SSE2(unsigned *seed)
 
 inline unsigned RandomWELL512a_SSE2::GetUnsigned()
 {
-	if (resultIndex < 4)
-		return result[resultIndex++];
-
-	GetUnsigned4(result);
-	resultIndex = 1;
-	return result[0];
+	if (resultIndex >= 4)
+	{
+		GetUnsigned4(result);
+		resultIndex = 0;
+	}
+	return result[resultIndex++];
 }
 
 inline double RandomWELL512a_SSE2::GetDouble()
