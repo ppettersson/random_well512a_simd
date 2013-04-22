@@ -27,7 +27,6 @@
 
 #include "RandomWELL512a_SSE2.h"
 #include <stdlib.h>		// Needed for rand().
-#include <memory.h>		// Needed for memcpy().
 
 RandomWELL512a_SSE2::RandomWELL512a_SSE2(int seed)
 	: index(0)
