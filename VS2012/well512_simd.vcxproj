@@ -148,8 +148,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\main.cpp" />
-    <ClCompile Include="..\RandomWELL512a.cpp" />
-    <ClCompile Include="..\RandomWELL512a_SSE2.cpp" />
     <ClCompile Include="..\WELL512a.cpp" />
   </ItemGroup>
   <ItemGroup>

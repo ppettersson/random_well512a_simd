@@ -2,8 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="..\main.cpp" />
-    <ClCompile Include="..\RandomWELL512a.cpp" />
-    <ClCompile Include="..\RandomWELL512a_SSE2.cpp" />
     <ClCompile Include="..\WELL512a.cpp" />
   </ItemGroup>
   <ItemGroup>
