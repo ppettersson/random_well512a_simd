@@ -45,10 +45,8 @@ public:
 
 private:
     __m128i     state[16];
-    unsigned    index;
-
-    // Helper to allow us to return one number per call.
     unsigned    result[4];
+    unsigned    index;
     unsigned    result_index;
 };
 
