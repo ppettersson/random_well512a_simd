@@ -71,8 +71,8 @@ inline unsigned RandomWELL512a::GetUnsigned()
     unsigned index_13 = (index + 13) & 15;
     unsigned index_15 = (index + 15) & 15;
 
-    unsigned state_index = state[index];
-    unsigned state_index_9 = state[index_9];
+    unsigned state_index    = state[index];
+    unsigned state_index_9  = state[index_9];
     unsigned state_index_13 = state[index_13];
     unsigned state_index_15 = state[index_15];
 

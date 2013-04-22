@@ -99,24 +99,24 @@ void Test()
     unsigned seed[4 * 16];
     for (unsigned i = 0; i < 4 * 16; ++i)
         seed[i] = rand();
-    RandomWELL512a randomWell0(seed + 0 * 16);
-    RandomWELL512a randomWell1(seed + 1 * 16);
-    RandomWELL512a randomWell2(seed + 2 * 16);
-    RandomWELL512a randomWell3(seed + 3 * 16);
+    RandomWELL512a random_well0(seed + 0 * 16);
+    RandomWELL512a random_well1(seed + 1 * 16);
+    RandomWELL512a random_well2(seed + 2 * 16);
+    RandomWELL512a random_well3(seed + 3 * 16);
 
-    RandomWELL512a_SSE2 randomWellSSE2(seed);
+    RandomWELL512a_SSE2 random_well_SSE2(seed);
 
     for (unsigned i = 0; i < kNumIterations; i += 4)
     {
-        result0[i + 0] = randomWell0.GetDouble();
-        result0[i + 1] = randomWell1.GetDouble();
-        result0[i + 2] = randomWell2.GetDouble();
-        result0[i + 3] = randomWell3.GetDouble();
+        result0[i + 0] = random_well0.GetDouble();
+        result0[i + 1] = random_well1.GetDouble();
+        result0[i + 2] = random_well2.GetDouble();
+        result0[i + 3] = random_well3.GetDouble();
 
-        result1[i + 0] = randomWellSSE2.GetDouble();
-        result1[i + 1] = randomWellSSE2.GetDouble();
-        result1[i + 2] = randomWellSSE2.GetDouble();
-        result1[i + 3] = randomWellSSE2.GetDouble();
+        result1[i + 0] = random_well_SSE2.GetDouble();
+        result1[i + 1] = random_well_SSE2.GetDouble();
+        result1[i + 2] = random_well_SSE2.GetDouble();
+        result1[i + 3] = random_well_SSE2.GetDouble();
     }
 
     if (memcmp(result0, result1, kNumIterations * sizeof(double)))
